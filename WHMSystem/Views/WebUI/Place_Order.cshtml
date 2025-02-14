@@ -1,0 +1,113 @@
+﻿@model WHMSystem.Models.PlaceOrderDto
+
+@{
+    ViewData["Title"] = "Place Order";
+    Layout = "/Views/Shared/Client_UI_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+        <h3 class="text-center mb-4">
+            <i class="fas fa-shopping-cart text-primary"></i> Place Order
+        </h3>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success"><i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]</div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> @TempData["ErrorMessage"]</div>
+        }
+
+        <form asp-action="Place_Order" method="post">
+            <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" asp-for="ProductCode" />
+            <input type="hidden" asp-for="ProductName" />
+            <input type="hidden" asp-for="ProductTypeName" />
+            <input type="hidden" asp-for="WarrantyDate" />
+            <input type="hidden" asp-for="CurrentQuantity" />
+
+            <!-- Product Details -->
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label"><i class="fas fa-box"></i> Product Name</label>
+                    <input class="form-control" value="@Model.ProductName" disabled />
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label"><i class="fas fa-tags"></i> Product Type</label>
+                    <input class="form-control" value="@Model.ProductTypeName" disabled />
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label"><i class="fas fa-cubes"></i> Available Quantity</label>
+                    <input class="form-control" value="@Model.CurrentQuantity" disabled />
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label"><i class="fas fa-calendar-alt"></i> Warranty Date</label>
+                    <input class="form-control" value="@Model.WarrantyDate" disabled />
+                </div>
+            </div>
+
+            <br />
+
+            <!-- Customer Details -->
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label"><i class="fas fa-user"></i> Customer Name</label>
+                    <input type="text" asp-for="CustomerName" class="form-control" required />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label"><i class="fas fa-map-marker-alt"></i> Customer Address</label>
+                    <input type="text" asp-for="CustomerAddress" class="form-control" required />
+                </div>
+            </div>
+
+            <br />
+
+            <!-- Order Details -->
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label"><i class="fas fa-sort-numeric-up"></i> Order Quantity</label>
+                    <input type="number" name="OrderQuantity" class="form-control" required min="1" max="@Model.CurrentQuantity" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label"><i class="fas fa-calendar-day"></i> Order Date</label>
+                    <input type="date" asp-for="OrderDate" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" required />
+                </div>
+            </div>
+
+            <br />
+
+            <!-- Delivery Option -->
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label"><i class="fas fa-truck"></i> Delivery Option</label>
+                    <select asp-for="DeliveryOptionID" class="form-control" required>
+                        <option value="">Select Delivery Option</option>
+                        <option value="1">Standard Delivery</option>
+                        <option value="2">Express Delivery</option>
+                        <option value="3">Same Day Delivery</option>
+                    </select>
+                </div>
+            </div>
+
+            <br />
+
+            <!-- Submit and Cancel Buttons -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-success px-4">
+                    <i class="fas fa-check"></i> Submit Order
+                </button>
+                <a href="@Url.Action("Index", "WebUI")" class="btn btn-secondary px-4">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

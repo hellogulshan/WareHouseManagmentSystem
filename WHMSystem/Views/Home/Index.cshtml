@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page - WHMSystem</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
+    <link rel="stylesheet" href="/WHMSystem.styles.css?v=it7reRW8uIlmEf5-RpcK09WI80qplTUZeNa00AB0QuI" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* Ensure full viewport height and prevent scrolling */
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Full height for the container */
+        .full-screen-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        /* Left side image adjustments */
+        .left-image {
+            height: 100vh;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        /* Right side buttons section */
+        .right-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid full-screen-container">
+        <div class="row w-100 h-100">
+            <!-- Left Side - Full-Height Image -->
+            <div class="col-md-8 p-0">
+                <img src="/images/wms-img.jpg" class="left-image" alt="Warehouse Management System">
+            </div>
+
+            <!-- Right Side - Navigation Buttons -->
+            <div class="col-md-4 bg-light right-section text-center">
+                <h2 class="mb-4">
+                    <i class="fas fa-warehouse text-primary"></i> Warehouse Management System
+                </h2>
+                <a class="btn btn-primary btn-lg w-75 mb-3" href="/WebUI">
+                    <i class="fas fa-users"></i> Main UI Client
+                </a>
+                <a class="btn btn-dark btn-lg w-75" href="/AdminPanel">
+                    <i class="fas fa-user-shield"></i> Admin Panel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js?v=4q1jwFhaPaZgr8WAUSrux6hAuh0XDg9kPS3xIVq36I0"></script>
+</body>
+</html>

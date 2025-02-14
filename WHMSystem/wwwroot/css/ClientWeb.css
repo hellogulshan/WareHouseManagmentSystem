@@ -1,0 +1,50 @@
+﻿.navbar-light .navbar-brand {
+    color: #ffebeb;
+    font-weight: 700;
+}
+    .navbar-light .navbar-brand:hover {
+        color: #ffebeb;
+    }
+
+.navbar {
+    background-color: #0d6efd !important;
+}
+
+
+ul.navbar-nav.flex-grow-1 {
+    justify-content: end;
+}
+
+#product-nvbar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#srch-dwnd-pnl {
+    text-align: right;
+}
+
+input#searchInput {
+    width: 70%;
+    padding: 10px 35px 10px 15px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.sidenav-header {
+    text-align: center;
+    margin-top: 5px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+i#orderIcon {
+    font-size: 18px;
+    color: red;
+    cursor: pointer;
+}
+

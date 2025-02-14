@@ -1,0 +1,74 @@
+﻿@model IEnumerable<WHMSystem.Models.ProductDto>
+
+@{
+    ViewData["Title"] = "Web App Client";
+    Layout = "/Views/Shared/Client_UI_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-6">
+            <h3><i class="fas fa-boxes text-primary"></i> Product List</h3>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search by Product Name or Code..." onkeyup="filterProducts()">
+            </div>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success"><i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]</div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> @TempData["ErrorMessage"]</div>
+    }
+
+    <!-- Product Cards -->
+    <div class="row" id="product-list">
+        @foreach (var product in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-light">
+                        <h5 class="card-title text-center text-primary">
+                            <i class="fas fa-box"></i> @product.ProductName
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong><i class="fas fa-barcode"></i> Product Code:</strong> @product.ProductCode</p>
+                        <p><strong><i class="fas fa-calendar-alt"></i> Warranty Date:</strong> @product.WarrantyDate?.ToString("yyyy-MM-dd")</p>
+                        <p><strong><i class="fas fa-tags"></i> Product Type:</strong> @product.ProductTypeName</p>
+                        <p><strong><i class="fas fa-cubes"></i> Available Quantity:</strong> @product.CurrentQuantity</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="@Url.Action("Place_Order", "WebUI", new { id = product.ProductId })" class="btn btn-primary">
+                            <i class="fas fa-shopping-cart"></i> Place Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    function filterProducts() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let products = document.querySelectorAll("#product-list .col-lg-4");
+
+        products.forEach(product => {
+            let name = product.querySelector(".card-title").innerText.toLowerCase();
+            let code = product.querySelector(".card-body p:first-of-type").innerText.toLowerCase();
+
+            if (name.includes(input) || code.includes(input)) {
+                product.style.display = "block";
+            } else {
+                product.style.display = "none";
+            }
+        });
+    }
+</script>

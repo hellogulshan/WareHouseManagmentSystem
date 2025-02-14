@@ -1,0 +1,115 @@
+﻿@model WHMSystem.Models.AddProductDto
+
+@{
+    ViewData["Title"] = "Add New Product";
+    Layout = "/Views/Shared/Admin_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center mb-4" id="AddProdctTtl">
+            <i class="fas fa-box-open text-primary"></i> Add New Product
+        </h2>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle"></i> @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <form method="post" asp-action="AddProduct" asp-controller="AdminPanel">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-barcode"></i> Product Code</label>
+                        <input type="text" name="ProductCode" class="form-control" required />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-tag"></i> Product Name</label>
+                        <input type="text" name="ProductName" class="form-control" required />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-list-alt"></i> Select Existing Product Type</label>
+                        <select id="productTypeDropdown" class="form-control" name="ProductTypeName">
+                            <option value="">-- Select Product Type --</option>
+                            @foreach (var type in ViewBag.ExistingProducts)
+                            {
+                                <option value="@type">@type</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-plus-circle"></i> Or Enter New Product Type</label>
+                        <input type="text" id="productTypeInput" name="ProductTypeName" class="form-control" placeholder="Enter new product type" />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-calendar-alt"></i> Warranty Date</label>
+                        <input type="date" name="WarrantyDate" class="form-control" required />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-cubes"></i> Current Quantity</label>
+                        <input type="number" name="CurrentQuantity" class="form-control" required min="1" />
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center mt-3">
+                    <button type="submit" class="btn btn-success px-4">
+                        <i class="fas fa-save"></i> Save Product
+                    </button>
+                    <a href="@Url.Action("Product", "AdminPanel")" class="btn btn-secondary px-4">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var dropdown = document.getElementById("productTypeDropdown");
+        var input = document.getElementById("productTypeInput");
+
+        dropdown.addEventListener("change", function () {
+            if (dropdown.value) {
+                input.value = "";
+                input.disabled = true;
+            } else {
+                input.disabled = false;
+            }
+        });
+
+        input.addEventListener("input", function () {
+            if (input.value.trim()) {
+                dropdown.value = "";
+                dropdown.disabled = true;
+            } else {
+                dropdown.disabled = false;
+            }
+        });
+    });
+</script>
