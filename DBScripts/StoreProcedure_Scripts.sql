@@ -14,7 +14,7 @@ GO
 --    @CurrentQuantity = 150;
 
 
-CREATE   PROCEDURE [dbo].[pr_AddNewProduct]
+CREATE OR ALTER  PROCEDURE [dbo].[pr_AddNewProduct]
     @ProductCode NVARCHAR(50),
     @ProductName NVARCHAR(100),
     @WarrantyDate DATE = NULL,
@@ -67,7 +67,7 @@ GO
 --Delete Records By Product Id
 --EXEC pr_DeleteProductById @ProductID = 3;
 
-CREATE   PROCEDURE [dbo].[pr_DeleteProductById]
+CREATE OR ALTER  PROCEDURE [dbo].[pr_DeleteProductById]
     @ProductID INT
 AS
 BEGIN
@@ -97,7 +97,7 @@ GO
 
 --get all order details
 --exec pr_getAllOrders
-CREATE   PROCEDURE [dbo].[pr_GetAllOrders]
+CREATE  OR ALTER PROCEDURE [dbo].[pr_GetAllOrders]
 AS
 BEGIN
 select o.OrderID,o.OrderDate,p.ProductName,p.WarrantyDate,
@@ -117,7 +117,20 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
--- Retrieve all Products  --EXEC pr_GetAllProducts;  CREATE   PROCEDURE [dbo].[pr_GetAllProducts]  AS  BEGIN      SELECT P.ProductId, 		p.ProductTypeID,        P.ProductCode,         P.ProductName,         P.WarrantyDate,         PT.ProductTypeName,  -- Rename the column        P.CurrentQuantity   FROM Products P      INNER JOIN ProductTypes PT ON P.ProductTypeID = PT.ProductTypeID  END;
+-- Retrieve all Products  
+--EXEC pr_GetAllProducts;  
+CREATE OR ALTER  PROCEDURE [dbo].[pr_GetAllProducts]  
+AS  
+BEGIN  
+    SELECT P.ProductId, 
+		p.ProductTypeID,
+        P.ProductCode, 
+        P.ProductName, 
+        P.WarrantyDate, 
+        PT.ProductTypeName,  -- Rename the column
+        P.CurrentQuantity   FROM Products P  
+    INNER JOIN ProductTypes PT ON P.ProductTypeID = PT.ProductTypeID  
+END;
 GO
 /****** Object:  StoredProcedure [dbo].[pr_GetOrdersByDate]    Script Date: 14-02-2025 6.32.24 PM ******/
 SET ANSI_NULLS ON
@@ -126,7 +139,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- Retrieve all Orders By Date
 --EXEC pr_GetOrdersByDate @StartDate = '2024-01-01', @EndDate = '2024-02-01';
-CREATE PROCEDURE [dbo].[pr_GetOrdersByDate]
+CREATE OR ALTER PROCEDURE [dbo].[pr_GetOrdersByDate]
     @StartDate DATE,
     @EndDate DATE
 AS
@@ -149,7 +162,25 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
--- Retrieve Products By Id--EXEC pr_GetProductById @ProductID = 1;CREATE   PROCEDURE [dbo].[pr_GetProductById]      @ProductID INT  AS  BEGIN      SELECT         P.ProductId,          P.ProductTypeID,          P.ProductCode,          P.ProductName,          P.WarrantyDate,          PT.ProductTypeName,          P.CurrentQuantity      FROM Products P      INNER JOIN ProductTypes PT ON P.ProductTypeID = PT.ProductTypeID      WHERE P.ProductId = @ProductID;  END;
+-- Retrieve Products By Id
+--EXEC pr_GetProductById @ProductID = 1;
+
+CREATE OR ALTER  PROCEDURE [dbo].[pr_GetProductById]  
+    @ProductID INT  
+AS  
+BEGIN  
+    SELECT 
+        P.ProductId,  
+        P.ProductTypeID,  
+        P.ProductCode,  
+        P.ProductName,  
+        P.WarrantyDate,  
+        PT.ProductTypeName,  
+        P.CurrentQuantity  
+    FROM Products P  
+    INNER JOIN ProductTypes PT ON P.ProductTypeID = PT.ProductTypeID  
+    WHERE P.ProductId = @ProductID;  
+END;
 GO
 /****** Object:  StoredProcedure [dbo].[pr_GetProductsByTypeId]    Script Date: 14-02-2025 6.32.24 PM ******/
 SET ANSI_NULLS ON
@@ -158,7 +189,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- Retrieve all Products By Type Id
 --EXEC pr_GetProductsByTypeId @ProductTypeID = 1;
-CREATE PROCEDURE [dbo].[pr_GetProductsByTypeId]
+CREATE OR ALTER PROCEDURE [dbo].[pr_GetProductsByTypeId]
     @ProductTypeID INT
 AS
 BEGIN
@@ -175,7 +206,7 @@ GO
 -- Retrieve all ProductTypes
 --EXEC pr_GetProductTypes;
   
-CREATE PROCEDURE [dbo].[pr_GetProductTypes]
+CREATE OR ALTER PROCEDURE [dbo].[pr_GetProductTypes]
 AS
 BEGIN
     SELECT * FROM ProductTypes;
@@ -190,7 +221,7 @@ GO
 
 --EXEC pr_InsertOrder '2025-02-13','GUDDU','RAIPUR',3,'PROD1001',10
 
-CREATE   PROCEDURE [dbo].[pr_InsertOrder]
+CREATE OR ALTER  PROCEDURE [dbo].[pr_InsertOrder]
 (
     @orderDate DATE = NULL,
     @customerName VARCHAR(20),
@@ -291,7 +322,7 @@ GO
 --    @CurrentQuantity = 50;
 
 
-CREATE   PROCEDURE [dbo].[pr_UpdateProduct]
+CREATE OR ALTER  PROCEDURE [dbo].[pr_UpdateProduct]
     @ProductId INT,
     @ProductCode NVARCHAR(50),
     @ProductName NVARCHAR(100),
