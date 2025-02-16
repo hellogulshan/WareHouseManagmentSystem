@@ -29,7 +29,6 @@ namespace WHMSystem.Controllers
                 string data = await response.Content.ReadAsStringAsync();
                 metrics = JsonConvert.DeserializeObject<DashboardDto>(data);
             }
-            // Pass the metrics model to the view
             return View(metrics);
         }
 
