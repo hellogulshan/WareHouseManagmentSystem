@@ -17,9 +17,20 @@ namespace WHMSystem.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            DashboardDto metrics = new DashboardDto();
+            var client = _httpClientFactory.CreateClient();
+            string apiUrl = "https://localhost:7192/api/GetDashboardMetrics";
+            HttpResponseMessage response = await client.GetAsync(apiUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                string data = await response.Content.ReadAsStringAsync();
+                metrics = JsonConvert.DeserializeObject<DashboardDto>(data);
+            }
+            // Pass the metrics model to the view
+            return View(metrics);
         }
 
         public async Task<IActionResult> Product()

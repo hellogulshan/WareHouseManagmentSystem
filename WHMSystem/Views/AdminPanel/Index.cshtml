@@ -1,4 +1,6 @@
-﻿@{
+﻿@model WHMSystem.Models.DashboardDto
+
+@{
     ViewData["Title"] = "Admin Panel";
     Layout = "/Views/Shared/Admin_Layout.cshtml";
 }
@@ -12,25 +14,19 @@
         <div class="card">
             <i class="fas fa-box"></i>
             <h4>Total Products</h4>
-            <p>250</p>
+            <p>@Model.TotalProducts</p>
         </div>
 
         <div class="card">
             <i class="fas fa-shopping-cart"></i>
-            <h4>New Orders</h4>
-            <p>75</p>
+            <h4>Today New Orders</h4>
+            <p>@Model.TodayTotalOrders</p>
         </div>
 
         <div class="card">
             <i class="fas fa-users"></i>
-            <h4>Customers</h4>
-            <p>1,230</p>
-        </div>
-
-        <div class="card">
-            <i class="fas fa-dollar-sign"></i>
-            <h4>Total Revenue</h4>
-            <p>$50,000</p>
+            <h4>Total Unique Customers</h4>
+            <p>@Model.TotalUniqueCustomers</p>
         </div>
     </div>
 </div>
