@@ -58,3 +58,7 @@ i#dsbrd-icons {
     color: #f44335;
     font-size:25px;
 }
+
+div#main-container-body {
+    padding-top: 30px;
+}
