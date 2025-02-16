@@ -382,3 +382,24 @@ BEGIN
 END;
 
 GO
+
+--Get Specific Data for Dashboard  Script Date: 16-02-2025 ******/
+--EXEC pr_GetDashboardMetrics;
+GO
+CREATE OR ALTER PROCEDURE pr_GetDashboardMetrics
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    BEGIN TRY
+        SELECT 
+            (SELECT COUNT(DISTINCT ProductCode) FROM Products) AS TotalProducts,
+            (SELECT COUNT(CASE WHEN CAST(OrderDate AS DATE) = CAST(GETDATE() AS DATE) THEN 1 END) FROM Orders) AS TodayTotalOrders,
+            (SELECT COUNT(DISTINCT CustomerName) FROM Orders) AS TotalUniqueCustomers;
+    END TRY
+    BEGIN CATCH
+        PRINT 'Error: ' + ERROR_MESSAGE();
+        THROW;
+    END CATCH;
+END;
+GO

@@ -27,7 +27,7 @@ namespace WHMSystem.Controllers
             {
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
-                    var metrics = await connection.QueryFirstOrDefaultAsync<DashboardDto>("sp_GetDashboardMetrics",
+                    var metrics = await connection.QueryFirstOrDefaultAsync<DashboardDto>("pr_GetDashboardMetrics",
                         commandType: CommandType.StoredProcedure
                     );
 
