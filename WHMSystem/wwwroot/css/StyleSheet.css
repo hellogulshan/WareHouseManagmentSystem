@@ -43,3 +43,18 @@ h2#AddProdctTtl {
     font-size: 25px;
     font-family: sans-serif;
 }
+
+i#admin-sidebar-icons {
+    color: #f44335;
+}
+
+
+i#admin-title-icons {
+    color: #f44335;
+}
+
+
+i#dsbrd-icons {
+    color: #f44335;
+    font-size:25px;
+}
